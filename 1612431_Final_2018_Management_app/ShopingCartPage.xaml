@@ -1,0 +1,165 @@
+﻿<Page x:Class="_1612431_Final_2018_Management_app.ShopingCartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:_1612431_Final_2018_Management_app"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      d:DesignWidth="1103"
+      
+      mc:Ignorable="d" 
+      
+      Title="ShopingCartPage"
+      Height="692.5" Width="1103"
+      Loaded="Page_Loaded"
+      >
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" >
+            <StackPanel Background="White" Orientation="Vertical" CanVerticallyScroll="True">
+
+                <!--Số sản phẩm-->
+                <StackPanel Orientation="Horizontal" Margin="152,20,0,0">
+                    <TextBlock Text="GIỎ HÀNG CỦA BẠN ("/>
+                    <TextBlock Name="TotalProductQuantity" Text="0"/>
+                    <TextBlock Text=" sản phẩm)"></TextBlock>
+
+                    <TextBlock Name="DangNhapTextBlock" TextAlignment="Right" Visibility="Visible" Text="" Foreground="White" Width="601"> 
+                    <Hyperlink Foreground="Black" Click="Hyperlink_Click">Tiếp tục mua hàng</Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+
+                <!--DataGrid danh sách sản phẩm-->
+                <DataGrid ScrollViewer.HorizontalScrollBarVisibility="Hidden" HeadersVisibility="None" Background="White" AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 
+                            RowHeight="150"
+                                  Height="0" 
+                            HorizontalAlignment="Center" 
+                            Name="ProductListDataGrid" 
+                            VerticalAlignment="Center"
+                            IsReadOnly="True"
+                            Width="798" Canvas.Top="2" Margin="152,10,153,10">
+
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="DataGridCell_PreviewMouseLeftButtonDownProduct"></EventSetter>
+
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.Columns>
+
+                        <DataGridTemplateColumn Header="             Sản phẩm" Width="200">
+
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding ProductSource}" Height="150"></Image>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn       
+                        Header="Tên sản phẩm"
+                        Binding="{Binding Path=Name}"
+                        Width="200">
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn 
+                        Header="Giá hiển thị"
+                        Width="150"
+                        Binding="{Binding Path=DisplayPrice}">
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn 
+                        Header="Số lượng"
+                        Width="*"
+                        Binding="{Binding Path=Quantity}">
+                        </DataGridTextColumn>
+
+                        <DataGridTemplateColumn Width="200">
+
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+
+                                        <Button Width="45" Height="45" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" Foreground="Black" Content="-" Margin="0,0,2,0" Name="DisturbQuantity" Click="DisturbQuantity_Click"></Button>
+
+                                        <Button Width="45" Height="45" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" Foreground="Black" Content="+" Name="AdditionQuantity" Click="AdditionQuantity_Click"></Button>
+
+                                        <Button Width="20" Height="20" Background="Transparent" Name="DeleteProductButton" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Click="DeleteProductButton_Click" Margin="40,0,0,0">
+                                            <materialDesign:PackIcon Foreground="IndianRed" Kind="Close" Height="15" Width="15"/>
+                                        </Button>
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!--Tính tiền-->
+                <StackPanel  Margin="0" Width="1083">
+                    <Canvas Height="120">
+                        <CheckBox Name="CodeCheckBox" Checked="CheckBox_Checked" Content="Mã giảm giá" Canvas.Left="188" Canvas.Top="12" Unchecked="CheckBox_Unchecked"></CheckBox>
+
+                        <TextBlock Canvas.Top="10" Text="Tạm tính:" Canvas.Left="670"/>
+                        <TextBlock Canvas.Top="50" Text="Khuyến mãi:" Canvas.Left="670"/>
+                        <TextBlock Canvas.Top="90" Text="Thành tiền:" Canvas.Left="670"/>
+
+                        <TextBlock x:Name="PriceTextBlock" Canvas.Top="10" Canvas.Right="250"/>
+                        <TextBlock x:Name="PromotionTextBlock" Canvas.Top="50" Canvas.Right="250"/>
+                        <TextBlock x:Name="TotalAmountTextBlock" Canvas.Top="90" Canvas.Right="250"/>
+
+                        <StackPanel Name="CodePanel" Visibility="Hidden" Orientation="Horizontal" Canvas.Left="190" Canvas.Top="39">
+                            <TextBox BorderThickness="1" Width="258" Height="40" materialDesign:HintAssist.Hint="Nhập mã giảm giá" Canvas.Left="188" Canvas.Top="31" Name="CodeTextBox"/>
+                            <Button Name="ApplyCodeButton" Margin="0,0.5,0,0" Height="38" Click="ApplyCodeButton_Click">Áp dụng</Button>
+                        </StackPanel>
+                    </Canvas>
+                </StackPanel>
+
+                <!--Đường kẻ-->
+                <StackPanel Width="798" Height="1" Background="Silver"></StackPanel>
+
+                <!--Khách hàng-->
+                <StackPanel Margin="0,10,0,3">
+                    <TextBlock TextAlignment="Center">NHẬP THÔNG TIN KHÁCH HÀNG</TextBlock>
+                    <TextBox x:Name="CustomerNameTextBox" Width="400" Height="40" Margin="0,10,0,0" materialDesign:HintAssist.Hint=" Tên khách hàng" />
+                    <TextBox x:Name="CustomerPhoneTextBox" Width="400" Height="40" Margin="0,10,0,0" materialDesign:HintAssist.Hint=" Số điện thoại" />
+                    <TextBox x:Name="CustomerAdressTextBox" Width="400" Height="40" Margin="0,10,0,0" materialDesign:HintAssist.Hint=" Địa chỉ" />
+                </StackPanel>
+
+                <!--Đường kẻ-->
+                <StackPanel Width="798" Height="1" Margin="0,15,0,0" Background="Silver"></StackPanel>
+
+                <!--Chọn phương thức thanh toán-->
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Margin="0,10" HorizontalAlignment="Center">CHỌN PHƯƠNG THỨC THANH TOÁN</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="320" Height="80" Name="ATMPayButton" Click="ATMPayButton_Click" >
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="60" Source="image/card.png"></Image>
+                                <StackPanel Height="50" Orientation="Vertical">
+                                    <TextBlock >THANH TOÁN QUA NGÂN HÀNG</TextBlock>
+                                    <TextBlock TextAlignment="Center" Margin="0,10,0,0">(ATM)</TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </Button>
+                        <TextBlock Height="25" FontSize="16" Width="80" TextAlignment="Center" Margin="5" HorizontalAlignment="Center">hoặc</TextBlock>
+                        <Button Background="PaleVioletRed" Name="MoneyPayButton" Click="MoneyPayButton_Click" Height="80" Width="320">
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="image/money.png"></Image>
+                                <StackPanel Height="50">
+                                    <TextBlock >THANH TOÁN TRỰC TIẾP</TextBlock>
+                                    <TextBlock TextAlignment="Center" Margin="0,10,0,0">(Tiền mặt)</TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Height="30"></StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -1,0 +1,56 @@
+﻿<Fluent:RibbonWindow x:Class="_1612431_Final_2018_Management_app.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_1612431_Final_2018_Management_app"
+        xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+               mc:Ignorable="d"
+                   
+        Title="QUẢN LÝ BÁN HÀNG" Height="750" Width="1103" Loaded="RibbonWindow_Loaded" WindowStartupLocation="CenterScreen">
+    <DockPanel LastChildFill="True">
+        <Fluent:Ribbon DockPanel.Dock="Top" Name="ribbon" IsAutomaticCollapseEnabled="True">
+            
+            <Fluent:Ribbon.Menu>
+                <Fluent:Backstage Header="File" Background="Green">
+                    <Fluent:BackstageTabControl>
+                        <Fluent:BackstageTabItem Header="Options">
+
+                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem Header="About">
+
+                        </Fluent:BackstageTabItem>
+                    </Fluent:BackstageTabControl>
+                </Fluent:Backstage>
+            </Fluent:Ribbon.Menu>
+            
+            <Fluent:RibbonTabItem Header="Sản phẩm">
+                
+            </Fluent:RibbonTabItem>
+            
+            <Fluent:RibbonTabItem Header="Quản lý">
+                <Fluent:RibbonGroupBox Width="90" Header="Product">
+                    <Fluent:Button Width="82"  Header="Hàng hoá" Name="ProductButton"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Width="90" Header="Promotion">
+                    <Fluent:Button Width="82" Header="Khuyến mãi" Name="NewCategoryButton"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
+                
+            </Fluent:RibbonTabItem>
+        </Fluent:Ribbon>
+
+        <TabControl Name="tabs" SelectedIndex="{Binding ElementName=ribbon, Path=SelectedTabIndex}" BorderThickness="0" SelectionChanged="tabs_SelectionChanged">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem"></ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+        </TabControl>
+    </DockPanel>
+
+</Fluent:RibbonWindow>

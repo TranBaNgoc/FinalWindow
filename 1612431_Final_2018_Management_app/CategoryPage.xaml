@@ -1,0 +1,470 @@
+﻿<Page x:Class="_1612431_Final_2018_Management_app.CategoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      Title="CategoryPage" >
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Margin="0">
+
+        <!--Chia cột toàn bộ trang-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="1"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Cột thứ nhất-->
+        <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0">
+
+            <!--Phần materialdesign-->
+            <materialDesign:DialogHost Name="CategoryDialogHost"
+                
+                Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
+                DialogMargin="8"
+                Height="596">
+
+                <Border
+                        BorderThickness="0"
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                        ClipToBounds="True"
+                        HorizontalAlignment="Stretch">
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!--Listview của mình-->
+                        <ListView x:Name="CategoryListView" SelectionChanged="CategoryListView_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+
+                                        <TextBlock Text="{Binding Name}"  Width="280" Height="30" TextAlignment="Left" />
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <!--Màu xanh, tiêu đề-->
+                        <materialDesign:ColorZone Mode="Accent" Grid.Row="1"
+                                Effect="{DynamicResource MaterialDesignShadowDepth5}">
+                            <TextBlock Margin="16"><Run Text="Danh sách loại sản phẩm"/></TextBlock>
+                        </materialDesign:ColorZone>
+
+                        <!--Hiệu ứng của button thêm loại sản phẩm-->
+                        <materialDesign:DialogHost>
+                            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"               
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                materialDesign:DialogHost.DialogClosingAttached="Add_Category_DialogHost_OnDialogClosing" Margin="250,529,10,-21">
+
+                                <materialDesign:PackIcon Kind="Plus" Height="22" Width="22" />
+
+                                <Button.CommandParameter>
+                                    <StackPanel Margin="16">
+                                        <TextBlock Text="Thêm loại sản phẩm"/>
+
+                                        <TextBox Name="AddCategoryTextBox" Width="200" Height="30"/>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="ADD">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="CANCLE">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Button.CommandParameter>
+
+                            </Button>
+                        </materialDesign:DialogHost>
+
+                        <!--Hiệu ứng của button xoá loại sản phẩm-->
+                        <materialDesign:DialogHost>
+                            <Button Visibility="Hidden" Name="DeleteCategoryButton" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"               
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                materialDesign:DialogHost.DialogClosingAttached="Delete_Category_DialogHost_OnDialogClosing" Margin="202,529,58,-21">
+
+                                <materialDesign:PackIcon Foreground="IndianRed" Kind="RubbishBin" Height="22" Width="22" />
+
+                                <Button.CommandParameter>
+                                    <StackPanel Margin="16">
+                                        <TextBlock Text="Bạn có muốn xoá loại sản phẩm này?"/>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="XOÁ">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="HUỶ BỎ">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Button.CommandParameter>
+
+                            </Button>
+                        </materialDesign:DialogHost>
+
+                        <!--Hiệu ứng của button chỉnh sửa loại sản phẩm-->
+                        <materialDesign:DialogHost>
+                            <Button Visibility="Hidden" Name="UpdateCategoryButton" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"               
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                materialDesign:DialogHost.DialogClosingAttached="Update_Category_DialogHost_OnDialogClosing" Margin="154,529,106,-21">
+
+                                <materialDesign:PackIcon Kind="Update" Height="22" Width="22" />
+
+                                <Button.CommandParameter>
+                                    <StackPanel Margin="16">
+                                        <TextBlock Text="Đổi tên loại sản phẩm"/>
+
+                                        <TextBox IsEnabled="False" Margin="0,10,0,0" Name="OldCategoryNameTextBox" materialDesign:HintAssist.Hint="Tên sản phẩm cũ"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+                                        <TextBox Margin="0,10,0,0" Name="NewCategoryNameTextBox" materialDesign:HintAssist.Hint="Tên sản phẩm mới"
+                                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="SỬA">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="HUỶ BỎ">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Button.CommandParameter>
+
+                            </Button>
+                        </materialDesign:DialogHost>
+
+                    </Grid>
+                </Border>
+            </materialDesign:DialogHost>
+
+        </StackPanel>
+
+        <!--Cột thứ 2 phân tách-->
+        <StackPanel Background="Black" Grid.Column="1"/>
+
+        <!--Cột thứ 3-->
+        <StackPanel Orientation="Vertical" Grid.Column="2">
+            <materialDesign:DialogHost Name="ProductDialogHost"
+                
+                Style="{StaticResource MaterialDesignEmbeddedDialogHost}"
+                DialogMargin="8"
+                Height="596">
+
+                <Border
+                        BorderThickness="0"
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                        ClipToBounds="True"
+                        HorizontalAlignment="Stretch">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!--DataGrid danh sách sản phẩm-->
+                        <DataGrid AutoGenerateColumns="False"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 
+                            RowHeight="200"
+                                  Height="548" 
+                            HorizontalAlignment="Left" 
+                            Name="ProductListDataGrid" 
+                            VerticalAlignment="Center"
+                            Width="799" Canvas.Top="2" AlternatingRowBackground="White"
+                                  SelectionChanged="ProductListDataGrid_SelectionChanged"
+                                  >
+
+                            <DataGrid.Columns>
+
+                                <DataGridTemplateColumn Header="             Sản phẩm" Width="200">
+
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding ProductSource}" Height="200"></Image>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTextColumn 
+                                    Header="Tên sản phẩm"
+                                    Binding="{Binding Path=Name}"
+                                    Width="200">
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn 
+                                    Header="Giá gốc"
+                                    Width="150"
+                                    Binding="{Binding Path=OriginalPrice}">
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn 
+                                    Header="Giá hiển thị"
+                                    Width="150"
+                                    Binding="{Binding Path=DisplayPrice}">
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn 
+                                    Header="Số lượng"
+                                    Width="*"
+                                    Binding="{Binding Path=Quantity}">
+                                </DataGridTextColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!--Màu xanh, tiêu đề-->
+                        <materialDesign:ColorZone Mode="Accent" Grid.Row="1"
+                                Effect="{DynamicResource MaterialDesignShadowDepth5}">
+                            <TextBlock Margin="16"><Run Text="Danh sách sản phẩm"/></TextBlock>
+                        </materialDesign:ColorZone>
+
+                        <!--Hiệu ứng của button thêm sản phẩm-->
+                        <materialDesign:DialogHost>
+                            <Button Name="AddProductButton" Visibility="Hidden" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"               
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                materialDesign:DialogHost.DialogClosingAttached="Add_Product_DialogHost_OnDialogClosing" Margin="690,529,10,-21">
+
+                                <materialDesign:PackIcon Kind="Plus" Height="22" Width="22" />
+
+                                <Button.CommandParameter>
+                                    <StackPanel Margin="16">
+                                        <TextBlock TextAlignment="Center" Text="Thêm sản phẩm"/>
+
+                                        <TextBox Name="ProDuctNameTextBox" Margin="0,10,0,0" Width="240" materialDesign:HintAssist.Hint="Tên sản phẩm" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                        <TextBox Name="ProDuctOriginalPriceTextBox" Margin="0,10,0,0" Width="240" materialDesign:HintAssist.Hint="Giá gốc" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                        <TextBox Name="ProDuctDisplayPriceTextBox" Margin="0,10,0,0" Width="240" materialDesign:HintAssist.Hint="Giá bán" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                        <TextBox Name="ProDuctQuantityTextBox" Margin="0,10,0,0" Width="240" materialDesign:HintAssist.Hint="Số lượng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                            <Button Name="ProductSourceButton" Click="ProductSourceButton_Click" Background="Transparent" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Chọn hình ảnh của sản phẩm từ máy tính">
+                                                <materialDesign:PackIcon
+                                                    Kind="Paperclip"
+                                                    Height="20"
+                                                    Width="20" 
+                                                    />
+                                            </Button>
+
+                                            <TextBlock Name="ProductSourceTextBlock" Text="  Ảnh sản phẩm" VerticalAlignment="Center"></TextBlock>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Right">
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="ADD">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="CANCLE">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Button.CommandParameter>
+
+                            </Button>
+                        </materialDesign:DialogHost>
+
+                        <!--Hiệu ứng của button xoá sản phẩm-->
+                        <materialDesign:DialogHost>
+                            <Button Visibility="Hidden" Name="DeleteProductButton" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"               
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                materialDesign:DialogHost.DialogClosingAttached="Delete_Product_DialogHost_OnDialogClosing" Margin="640,529,58,-21">
+
+                                <materialDesign:PackIcon Foreground="IndianRed" Kind="RubbishBin" Height="22" Width="22" />
+
+                                <Button.CommandParameter>
+                                    <StackPanel Margin="16">
+                                        <TextBlock Text="Bạn có muốn xoá loại sản phẩm này?"/>
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="XOÁ">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="HUỶ BỎ">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Button.CommandParameter>
+
+                            </Button>
+                        </materialDesign:DialogHost>
+
+                        <!--Hiệu ứng của button chỉnh sửa loại sản phẩm-->
+                        <materialDesign:DialogHost>
+                            <Button Visibility="Hidden" Name="UpdateProductButton" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"               
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                materialDesign:DialogHost.DialogClosingAttached="Update_Product_DialogHost_OnDialogClosing" Margin="540,529,58,-21" >
+
+                                <materialDesign:PackIcon Kind="Update" Height="22" Width="22" />
+
+                                <Button.CommandParameter>
+                                    <StackPanel Margin="16">
+
+                                        <TextBlock TextAlignment="Center" Text="Chỉnh sửa sản phẩm"/>
+
+                                        <TextBox Name="ThisProductNameTextBox" IsEnabled="False" Margin="0,10,0,0" Width="240" materialDesign:HintAssist.Hint="Tên sản phẩm" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                        <TextBox Name="NewProductOriginalPriceTextBox" Margin="0,10,0,0" Width="240" materialDesign:HintAssist.Hint="Giá gốc" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                        <TextBox Name="NewProductDisplayPriceTextBox" Margin="0,10,0,0" Width="240" materialDesign:HintAssist.Hint="Giá bán" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                        <TextBox Name="AdditionProductQuantityTextBox" Margin="0,10,0,0" Width="240" materialDesign:HintAssist.Hint="Số lượng nhập thêm" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                            <Button Name="NewProductSourceButton" Click="ProductSourceButton_Click" Background="Transparent" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Chọn hình ảnh của sản phẩm từ máy tính">
+                                                <materialDesign:PackIcon
+                                                    Kind="Paperclip"
+                                                    Height="20"
+                                                    Width="20" 
+                                                    />
+                                            </Button>
+
+                                            <TextBlock Name="NewProductSourceTextBlock" Text="  Ảnh sản phẩm" VerticalAlignment="Center"></TextBlock>
+                                        </StackPanel>
+
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="SỬA">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                            <Button
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                IsCancel="True"
+                                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                HorizontalAlignment="Center" Content="HUỶ BỎ">
+
+                                                <Button.CommandParameter>
+                                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                                                </Button.CommandParameter>
+                                            </Button>
+
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Button.CommandParameter>
+
+                            </Button>
+                        </materialDesign:DialogHost>
+
+                    </Grid>
+
+                </Border>
+            </materialDesign:DialogHost>
+        </StackPanel>
+
+    </Grid>
+</Page>
