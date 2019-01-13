@@ -39,6 +39,8 @@
             Canvas.Left="330" Canvas.Top="264" VerticalContentAlignment="Center" 
             Background="Transparent" Foreground="White" BorderBrush="Transparent" 
             BorderThickness="0" Cursor="Arrow"/>
+        
+        
         <Label Content="_Username:"  Canvas.Left="326" Canvas.Top="160" Foreground="White" Target="{Binding ElementName=UsernameText}"/>
         <Label Content="_Password:"  Canvas.Left="326" Canvas.Top="239" Foreground="White" Target="{Binding ElementName=PasswordText}" Background="Transparent"/>
 

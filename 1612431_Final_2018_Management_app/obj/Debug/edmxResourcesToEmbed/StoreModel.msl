@@ -8,6 +8,7 @@
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="PromotionCode" ColumnName="PromotionCode" />
           <ScalarProperty Name="PayMethod" ColumnName="PayMethod" />
         </MappingFragment>
       </EntityTypeMapping>

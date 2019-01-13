@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e4ffa6513f724c5a9b6af16c39ffd07b" Name="Diagram1">
-        <EntityTypeShape EntityType="StoreManagementModel.Bill" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+      <Diagram DiagramId="dd26891abe9345e5b45c99f1317745a1" Name="Diagram1">
+        <EntityTypeShape EntityType="StoreManagementModel.Bill" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreManagementModel.Category" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreManagementModel.CodePromotion" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreManagementModel.CouponPromotion" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />

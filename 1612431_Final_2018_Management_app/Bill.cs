@@ -24,6 +24,7 @@ namespace _1612431_Final_2018_Management_app
         public int CustomerID { get; set; }
         public System.DateTime Date { get; set; }
         public int TotalAmount { get; set; }
+        public int PromotionCode { get; set; }
         public string PayMethod { get; set; }
     
         public virtual Customer Customer { get; set; }

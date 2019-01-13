@@ -29,6 +29,9 @@ namespace _1612431_Final_2018_Management_app
         int Price = 0;
         int Promotion = 0;
         int TotalAmout = 0;
+        double SalePercent = 0;
+        int PromotionCode = 0;
+        int SumPromotion = 0;
 
         public ShopingCartPage()
         {
@@ -49,7 +52,8 @@ namespace _1612431_Final_2018_Management_app
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Price = TotalAmout = Promotion = 0;
+            Price = TotalAmout = Promotion = SumPromotion = PromotionCode = 0;
+            SalePercent = 0;
 
             // Số sản phẩm
             TotalProductQuantity.Text = Products.Count.ToString();
@@ -65,21 +69,33 @@ namespace _1612431_Final_2018_Management_app
                 NumberProduct += item.Quantity;
             }
 
+            // Kiểm tra khuyễn mãi dạng phiếu mua hàng có còn không
+            
             var CouponPromo = db.CouponPromotions.Where(s => s.isDelete == false).ToList();
             if (CouponPromo.Count > 0)
             {
-                Promotion = CouponPromo[0].PromotionPrice * NumberProduct;
+                // Khuyến mãi từng sản phẩm
+                Promotion = CouponPromo[0].PromotionPrice;
+
+                
+                foreach (var item in Products)
+                {
+                    SumPromotion += (Promotion * item.Quantity);
+                }
             }
             else
             {
+                // Kiểm tra khuyến mãi dang sale phần trăm có tồn tại hay không
                 var SalePromo = db.SalePercentPromotions.Where(s => s.isDelete == false).ToList();
                 if (db.SalePercentPromotions.Where(s=>s.isDelete==false).ToList().Count > 0)
                 {
-                    Promotion = (int)(Price * SalePromo[0].SalePercent);
-                }
-                else
-                {
-                    Promotion = 0;
+                    // Phần trăm khuyễn mãi từng sản phẩm
+                    SalePercent = SalePromo[0].SalePercent;
+
+                    foreach (var item in Products)
+                    {
+                        SumPromotion += (int)(SalePercent * item.DisplayPrice) * item.Quantity;
+                    }
                 }
             }
 
@@ -90,9 +106,9 @@ namespace _1612431_Final_2018_Management_app
             string sFormat = string.Format("#{0}###", groupSep);
             PriceTextBlock.Text = Price.ToString(sFormat);
 
-            PromotionTextBlock.Text = Promotion.ToString(sFormat);
+            PromotionTextBlock.Text = SumPromotion.ToString(sFormat);
 
-            TotalAmountTextBlock.Text = (Price - Promotion).ToString(sFormat);
+            TotalAmountTextBlock.Text = (Price - SumPromotion).ToString(sFormat);
 
             ApplyCodeButton_Click(null, null);
         }
@@ -168,7 +184,8 @@ namespace _1612431_Final_2018_Management_app
             var CodePromotion = db.CodePromotions.Find(CodeTextBox.Text);
             if (CodePromotion != null && CodeTextBox.Text != "")
             {
-                Promotion += CodePromotion.PromotionPrice;
+                PromotionCode = CodePromotion.PromotionPrice;
+                SumPromotion += CodePromotion.PromotionPrice;
 
                 // Chuyển định dạng số tiền
                 CultureInfo cul = CultureInfo.CurrentCulture;
@@ -176,16 +193,16 @@ namespace _1612431_Final_2018_Management_app
                 string groupSep = cul.NumberFormat.CurrencyGroupSeparator;
                 string sFormat = string.Format("#{0}###", groupSep);
 
-                PromotionTextBlock.Text = Promotion.ToString(sFormat);
+                PromotionTextBlock.Text = SumPromotion.ToString(sFormat);
 
-                TotalAmountTextBlock.Text = (Price - Promotion).ToString(sFormat);
+                TotalAmountTextBlock.Text = (Price - SumPromotion).ToString(sFormat);
 
                 ApplyCodeButton.IsEnabled = false;
             }
+
         }
 
         bool isATM = false;
-        bool isMoney = false;
 
         void Purchase()
         {
@@ -203,7 +220,40 @@ namespace _1612431_Final_2018_Management_app
 
                 // Thêm Bill vào database
                 Bill bill = new Bill();
+                bill.CustomerID = customer.ID;
+                bill.Date = DateTime.Now;
+                bill.TotalAmount = TotalAmout;
+                bill.PromotionCode = PromotionCode;
+                bill.PayMethod = (isATM == true) ? "ATM" : "Money";
 
+                db.Bills.Add(bill);
+                db.SaveChanges();
+
+                // Thêm DetailBill vào database
+                foreach (var item in Products)
+                {
+                    DetailBill detailBill = new DetailBill();
+                    detailBill.ID = bill.ID;
+                    detailBill.ProductID = item.ID;
+                    detailBill.Quantity = item.Quantity;
+                    detailBill.UnitPrice = item.DisplayPrice;
+
+                    if (Promotion != 0) detailBill.Promotion = Promotion;
+                    else if (SalePercent != 0) detailBill.Promotion = (int)(detailBill.UnitPrice * SalePercent);
+                    else detailBill.Promotion = 0;
+
+                    detailBill.Amount = (detailBill.UnitPrice - detailBill.Promotion) * detailBill.Quantity;
+
+                    db.DetailBills.Add(detailBill);
+                    db.SaveChanges();
+                }
+
+
+                MessageBox.Show("Tạo hoá dơn thành công");
+                Products = new ObservableCollection<Product>();
+                ProductListDataGrid.Height = 0;
+
+                Page_Loaded(null, null);
 
             }
         }
@@ -211,14 +261,12 @@ namespace _1612431_Final_2018_Management_app
         private void ATMPayButton_Click(object sender, RoutedEventArgs e)
         {
             isATM = true;
-            isMoney = false;
             Purchase();
         }
 
         private void MoneyPayButton_Click(object sender, RoutedEventArgs e)
         {
             isATM = false;
-            isMoney = true;
             Purchase();
         }
     }

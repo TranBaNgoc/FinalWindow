@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\IT\HK_5\Project\LapTrinhWindows\Final\1612431_Final_2018_Management_app\1612431_Final_2018_Management_app\StoreModel.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\IT\HK_5\Project\LapTrinhWindows\FinalWindow\1612431_Final_2018_Management_app\StoreModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

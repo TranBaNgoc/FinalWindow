@@ -47,7 +47,6 @@ namespace _1612431_Final_2018_Management_app
                     if (item.ID == product.ID)
                     {
                         item.Quantity++;
-                        return;
                     }
                 }
 
