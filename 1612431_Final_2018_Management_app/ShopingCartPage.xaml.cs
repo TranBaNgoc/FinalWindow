@@ -49,68 +49,78 @@ namespace _1612431_Final_2018_Management_app
             NavigationService.GoBack();
         }
 
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Price = TotalAmout = Promotion = SumPromotion = PromotionCode = 0;
-            SalePercent = 0;
-
-            // Số sản phẩm
-            TotalProductQuantity.Text = Products.Count.ToString();
-
-            // Danh sách sản phẩm đã mua
-            ProductListDataGrid.ItemsSource = Products;
-
-            // Tính tổng số tiền (tạm tính) và số sản phẩm
-            int NumberProduct = 0;
-            foreach (var item in Products)
+            if (Products.Count > 0)
             {
-                Price += (item.Quantity * item.DisplayPrice);
-                NumberProduct += item.Quantity;
-            }
+                CartProduct.Visibility = Visibility.Visible;
+                CartError.Visibility = Visibility.Collapsed;
 
-            // Kiểm tra khuyễn mãi dạng phiếu mua hàng có còn không
-            
-            var CouponPromo = db.CouponPromotions.Where(s => s.isDelete == false).ToList();
-            if (CouponPromo.Count > 0)
-            {
-                // Khuyến mãi từng sản phẩm
-                Promotion = CouponPromo[0].PromotionPrice;
+                Price = TotalAmout = Promotion = SumPromotion = PromotionCode = 0;
+                SalePercent = 0;
 
-                
+                // Số sản phẩm
+                TotalProductQuantity.Text = Products.Count.ToString();
+
+                // Danh sách sản phẩm đã mua
+                ProductListDataGrid.ItemsSource = Products;
+
+                // Tính tổng số tiền (tạm tính) và số sản phẩm
+                int NumberProduct = 0;
                 foreach (var item in Products)
                 {
-                    SumPromotion += (Promotion * item.Quantity);
+                    Price += (item.Quantity * item.DisplayPrice);
+                    NumberProduct += item.Quantity;
                 }
-            }
-            else
-            {
-                // Kiểm tra khuyến mãi dang sale phần trăm có tồn tại hay không
-                var SalePromo = db.SalePercentPromotions.Where(s => s.isDelete == false).ToList();
-                if (db.SalePercentPromotions.Where(s=>s.isDelete==false).ToList().Count > 0)
+
+                // Kiểm tra khuyễn mãi dạng phiếu mua hàng có còn không
+
+                var CouponPromo = db.CouponPromotions.Where(s => s.isDelete == false).ToList();
+                if (CouponPromo.Count > 0)
                 {
-                    // Phần trăm khuyễn mãi từng sản phẩm
-                    SalePercent = SalePromo[0].SalePercent;
+                    // Khuyến mãi từng sản phẩm
+                    Promotion = CouponPromo[0].PromotionPrice;
+
 
                     foreach (var item in Products)
                     {
-                        SumPromotion += (int)(SalePercent * item.DisplayPrice) * item.Quantity;
+                        SumPromotion += (Promotion * item.Quantity);
                     }
                 }
+                else
+                {
+                    // Kiểm tra khuyến mãi dang sale phần trăm có tồn tại hay không
+                    var SalePromo = db.SalePercentPromotions.Where(s => s.isDelete == false).ToList();
+                    if (db.SalePercentPromotions.Where(s => s.isDelete == false).ToList().Count > 0)
+                    {
+                        // Phần trăm khuyễn mãi từng sản phẩm
+                        SalePercent = SalePromo[0].SalePercent;
+
+                        foreach (var item in Products)
+                        {
+                            SumPromotion += (int)(SalePercent * item.DisplayPrice) * item.Quantity;
+                        }
+                    }
+                }
+
+                // Chuyển định dạng số tiền
+                CultureInfo cul = CultureInfo.CurrentCulture;
+                string decimalSep = cul.NumberFormat.CurrencyDecimalSeparator;
+                string groupSep = cul.NumberFormat.CurrencyGroupSeparator;
+                string sFormat = string.Format("#{0}###", groupSep);
+                PriceTextBlock.Text = Price.ToString(sFormat);
+
+                PromotionTextBlock.Text = SumPromotion.ToString(sFormat);
+
+                TotalAmountTextBlock.Text = (Price - SumPromotion).ToString(sFormat);
+
+                ApplyCodeButton_Click(null, null);
             }
-
-            // Chuyển định dạng số tiền
-            CultureInfo cul = CultureInfo.CurrentCulture;
-            string decimalSep = cul.NumberFormat.CurrencyDecimalSeparator;
-            string groupSep = cul.NumberFormat.CurrencyGroupSeparator;
-            string sFormat = string.Format("#{0}###", groupSep);
-            PriceTextBlock.Text = Price.ToString(sFormat);
-
-            PromotionTextBlock.Text = SumPromotion.ToString(sFormat);
-
-            TotalAmountTextBlock.Text = (Price - SumPromotion).ToString(sFormat);
-
-            ApplyCodeButton_Click(null, null);
+            else
+            {
+                CartProduct.Visibility = Visibility.Collapsed;
+                CartError.Visibility = Visibility.Visible;
+            }
         }
 
         Product product = new Product();
@@ -129,7 +139,14 @@ namespace _1612431_Final_2018_Management_app
             {
                 if (item.ID == product.ID)
                 {
-                    item.Quantity = item.Quantity + 1;
+                    if (item.Quantity < db.Products.Find(item.ID).Quantity)
+                    {
+                        item.Quantity = item.Quantity + 1;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sản phẩm chỉ còn lại " + item.Quantity + " sản phẩm", "Hết hàng", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
 
@@ -246,15 +263,21 @@ namespace _1612431_Final_2018_Management_app
 
                     db.DetailBills.Add(detailBill);
                     db.SaveChanges();
+
+                    var product = db.Products.Find(detailBill.ProductID);
+                    product.Quantity -= detailBill.Quantity;
+                    db.SaveChanges();
                 }
 
 
                 MessageBox.Show("Tạo hoá dơn thành công");
                 Products = new ObservableCollection<Product>();
                 ProductListDataGrid.Height = 0;
+                CustomerNameTextBox.Text = CustomerAdressTextBox.Text = CustomerPhoneTextBox.Text = "";
+
 
                 Page_Loaded(null, null);
-
+                Hyperlink_Click(null, null);
             }
         }
 
@@ -268,6 +291,11 @@ namespace _1612431_Final_2018_Management_app
         {
             isATM = false;
             Purchase();
+        }
+
+        private void BackProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            Hyperlink_Click(null, null);
         }
     }
 }

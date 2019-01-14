@@ -19,6 +19,7 @@
 
     <Grid Margin="0">
 
+        
         <!--Chia cột toàn bộ trang-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
@@ -209,7 +210,7 @@
                 </Border>
             </materialDesign:DialogHost>
 
-        </StackPanel>
+     </StackPanel>
 
         <!--Cột thứ 2 phân tách-->
         <StackPanel Background="Black" Grid.Column="1"/>

@@ -33,7 +33,7 @@ namespace _1612431_Final_2018_Management_app
         {
             db = new StoreManagementEntities();
             
-            ListviewItem.ItemsSource = db.Products.Where(s=>s.isDelete == false).ToList();
+            ListviewItem.ItemsSource = db.Products.Where(s=>s.isDelete == false && s.Quantity > 0).ToList();
         }
 
         private void ListviewItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -46,7 +46,7 @@ namespace _1612431_Final_2018_Management_app
                 {
                     if (item.ID == product.ID)
                     {
-                        item.Quantity++;
+                        return;
                     }
                 }
 

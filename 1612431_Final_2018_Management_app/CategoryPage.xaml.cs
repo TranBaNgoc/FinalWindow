@@ -33,8 +33,10 @@ namespace _1612431_Final_2018_Management_app
         private void Add_Category_DialogHost_OnDialogClosing(object sender, MaterialDesignThemes.Wpf.DialogClosingEventArgs eventArgs)
         {
             if ((bool)eventArgs.Parameter == false)
+            {
+           
                 return;
-
+            }
             Category category = new Category() { Name = AddCategoryTextBox.Text, isDelete = false };
 
             db.Categories.Add(category);

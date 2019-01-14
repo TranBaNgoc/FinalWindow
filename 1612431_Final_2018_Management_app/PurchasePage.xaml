@@ -110,10 +110,9 @@
                     <ColumnDefinition Width="900"/>
                 </Grid.ColumnDefinitions>
 
-                <!--<StackPanel Grid.Column="0">
-                    
-                    
-                </StackPanel>-->
+                <StackPanel Grid.Column="0">
+                                        
+                </StackPanel>
 
                 <StackPanel Grid.Column="1">
                     <ListView x:Name="ListviewItem" SelectionChanged="ListviewItem_SelectionChanged" Height="642" >

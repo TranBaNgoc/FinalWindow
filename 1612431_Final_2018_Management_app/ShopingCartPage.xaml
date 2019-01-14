@@ -15,7 +15,17 @@
       >
 
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Visible" >
+
+        <StackPanel Name="CartError" Background="White" Height="692.5" Width="1103">
+            <Button Name="BackProductButton" Click="BackProductButton_Click" Width="500" Height="60" Background="Transparent" Margin="0,100,0,0">
+                <StackPanel>
+                    <TextBlock Foreground="Black" Text="GIỎ HÀNG CỦA BẠN HIỆN CHƯA CÓ SẢN PHẨM NÀO"/>
+                    <TextBlock TextAlignment="Center" Foreground="Black" Text="Quay trở lại danh sách sản phẩm"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        
+        <ScrollViewer Name="CartProduct" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
             <StackPanel Background="White" Orientation="Vertical" CanVerticallyScroll="True">
 
                 <!--Số sản phẩm-->
