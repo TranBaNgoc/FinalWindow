@@ -30,11 +30,11 @@
             
             <Fluent:RibbonTabItem Header="Quản lý">
                 <Fluent:RibbonGroupBox Width="90" Header="Product">
-                    <Fluent:Button Width="82"  Header="Hàng hoá" Name="ProductButton"></Fluent:Button>
+                    <Fluent:Button Width="82" Click="ProductButton_Click" Header="Hàng hoá" Name="ProductButton"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Width="90" Header="Promotion">
-                    <Fluent:Button Width="82" Header="Khuyến mãi" Name="NewCategoryButton"></Fluent:Button>
+                    <Fluent:Button Width="82" Click="PromotionButton_Click" Header="Khuyến mãi" Name="PromotionButton"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
                 
             </Fluent:RibbonTabItem>

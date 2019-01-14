@@ -18,12 +18,18 @@
             </TabControl.ItemContainerStyle>
 
             
-            <TabItem Name="DangNhap">
+            <TabItem Name="Product">
                 <Grid>
                     <Frame Source="CategoryPage.xaml"/>
                 </Grid>
             </TabItem>
-            
+
+            <TabItem Name="Promotion">
+                <Grid>
+                    <Frame Source="PromotionPage.xaml"/>
+                </Grid>
+            </TabItem>
+
         </TabControl>
     </Grid>
 </Page>

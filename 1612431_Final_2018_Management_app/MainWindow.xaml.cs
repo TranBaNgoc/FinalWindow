@@ -55,16 +55,22 @@ namespace _1612431_Final_2018_Management_app
             tabs.SelectedIndex = 0;
         }
 
-        private void btnNewSale_Click(object sender, RoutedEventArgs e)
+        private void tabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tabs.SelectedIndex == 0) ribbon.Height = 30;
+            else ribbon.Height = 118;
+        }
+
+        private void ProductButton_Click(object sender, RoutedEventArgs e)
         {
             TabControl tabControl = ManagePage.tabControl;
             tabControl.SelectedIndex = 0;
         }
 
-        private void tabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void PromotionButton_Click(object sender, RoutedEventArgs e)
         {
-            if (tabs.SelectedIndex == 0) ribbon.Height = 30;
-            else ribbon.Height = 118;
+            TabControl tabControl = ManagePage.tabControl;
+            tabControl.SelectedIndex = 1;
         }
     }
 }

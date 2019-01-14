@@ -59,5 +59,17 @@ namespace _1612431_Final_2018_Management_app
         {
             NavigationService.Navigate(new ShopingCartPage(ShopingCartPage.Products.Count * 150));
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (NameTextBox.Text != "")
+            {
+                ListviewItem.ItemsSource = db.Products.Where(s => s.isDelete == false && s.Name.Contains(NameTextBox.Text)).ToList();
+            }
+            else
+            {
+                ListviewItem.ItemsSource = db.Products.Where(s => s.isDelete == false).ToList();
+            }
+        }
     }
 }

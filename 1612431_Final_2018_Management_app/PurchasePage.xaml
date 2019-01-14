@@ -20,7 +20,6 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-
             </Style>
             <Color x:Key="Color1">Black</Color>
 
@@ -63,7 +62,7 @@
               Kind="Magnify"
               Opacity=".56" />
                                 </Button>
-                                <TextBox
+                                <TextBox Name="NameTextBox" TextChanged="TextBox_TextChanged"
             Grid.Column="1"
             Margin="8 0 0 0"
             materialDesign:HintAssist.Hint="Build a search bar"

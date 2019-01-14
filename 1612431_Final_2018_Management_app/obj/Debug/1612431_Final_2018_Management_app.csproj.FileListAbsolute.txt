@@ -92,3 +92,5 @@ E:\IT\HK_5\Project\LapTrinhWindows\FinalWindow\1612431_Final_2018_Management_app
 E:\IT\HK_5\Project\LapTrinhWindows\FinalWindow\1612431_Final_2018_Management_app\obj\Debug\1612431_Final_2018_Management_app.csproj.CopyComplete
 E:\IT\HK_5\Project\LapTrinhWindows\FinalWindow\1612431_Final_2018_Management_app\obj\Debug\1612431_Final_2018_Management_app.exe
 E:\IT\HK_5\Project\LapTrinhWindows\FinalWindow\1612431_Final_2018_Management_app\obj\Debug\1612431_Final_2018_Management_app.pdb
+E:\IT\HK_5\Project\LapTrinhWindows\FinalWindow\1612431_Final_2018_Management_app\obj\Debug\PromotionPage.g.cs
+E:\IT\HK_5\Project\LapTrinhWindows\FinalWindow\1612431_Final_2018_Management_app\obj\Debug\PromotionPage.baml

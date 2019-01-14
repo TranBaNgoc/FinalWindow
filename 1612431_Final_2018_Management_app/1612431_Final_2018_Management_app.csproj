@@ -134,6 +134,9 @@
     <Compile Include="Product.cs">
       <DependentUpon>StoreModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PromotionPage.xaml.cs">
+      <DependentUpon>PromotionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PurchasePage.xaml.cs">
       <DependentUpon>PurchasePage.xaml</DependentUpon>
     </Compile>
@@ -217,6 +220,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PromotionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
