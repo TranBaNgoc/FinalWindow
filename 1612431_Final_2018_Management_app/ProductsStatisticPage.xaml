@@ -1,0 +1,74 @@
+﻿<Page x:Class="_1612431_Final_2018_Management_app.ProductsStatisticPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:_1612431_Final_2018_Management_app"
+      xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+      mc:Ignorable="d" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" d:DesignWidth="1103"
+      Loaded="Page_Loaded"
+      Height="692.5"  Width="1103"
+      Title="SalesStatisticPage">
+
+    <Grid>
+
+        <!--Biểu đồ-->
+        <StackPanel Name="ChartStackPanel" Visibility="Hidden">
+            <ScrollViewer  HorizontalScrollBarVisibility="Visible" VerticalAlignment="Top" VerticalScrollBarVisibility="Disabled" Height="500" Width="1103"  HorizontalAlignment="Left" Margin="0,93,0,0">
+                <chartingToolkit:Chart BorderThickness="0"  Margin="0" Width="1080" Name="columnChart" Title="Biểu đồ những sản phẩm bán chạy nhất">
+                    <chartingToolkit:ColumnSeries Name="column" DependentValuePath="Value" Width="968" Height="450" Title="Số lượng" IndependentValuePath="Key" ItemsSource="{Binding}" />
+                </chartingToolkit:Chart>
+            </ScrollViewer>
+        </StackPanel>
+
+        <!--Thông báo lỗi-->
+        <StackPanel Name="ErrorStackPanel" >
+            <TextBlock HorizontalAlignment="Center" Margin="0,300" FontSize="30" FontFamily="Arial" Text="Thời điểm bạn chọn không có sản phẩm nào được bán" Height="400"/>
+        </StackPanel>
+
+        <!--Chọn cách thống kê - theo ngày tháng năm-->
+        <ComboBox materialDesign:HintAssist.Hint="Chọn cách thức cần thống kê"  x:Name="StatisticMethodCombobox"  SelectionChanged="StatisticMethod_SelectionChanged" HorizontalAlignment="Left" Height="30" Margin="43,37,0,0" VerticalAlignment="Top" Width="229"></ComboBox>
+
+        <!--Chọn ngày thống kế-->
+        <DatePicker Name="DayStatisticDP" Visibility="Hidden" SelectedDateChanged="DayStatisticDP_SelectedDateChanged"
+              Width="200" Height="40"
+              materialDesign:HintAssist.Hint="Chọn ngày cần kiểm tra"
+              Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="335,27,568,625" />
+
+
+        <!--Chọn tháng thống kê-->
+        <ComboBox Name="MonthDP" Visibility="Hidden" Width="110" Height="40"
+              materialDesign:HintAssist.Hint="Chọn tháng"
+              IsEditable="True"
+              Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="333,27,660,625" SelectionChanged="MonthDP_SelectionChanged"/>
+
+        <!--Chọn năm theo tháng-->
+        <ComboBox Name="YearOfMonthDP" Visibility="Hidden" Width="110" Height="40"
+              materialDesign:HintAssist.Hint="Chọn năm"
+              IsEditable="True"
+              Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="461,27,532,625" SelectionChanged="YearOfMonthDP_SelectionChanged"/>
+
+        <!--Chọn năm thống kê-->
+
+        <ComboBox Name="YearDP" Visibility="Hidden" Width="110" Height="40"
+              materialDesign:HintAssist.Hint="Chọn năm"
+              IsEditable="True"
+              Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="333,27,660,625" SelectionChanged="YearDP_SelectionChanged"/>
+
+        <StackPanel Name="SEDateStackPanel" Visibility="Hidden" Orientation="Horizontal" Height="40" Width="420" Margin="320,27,341,625">
+            <!--Chọn ngày thống kế-->
+            <DatePicker Name="StartDateDP" SelectedDateChanged="StartDateDP_SelectedDateChanged"
+              Width="200" Height="40"
+              materialDesign:HintAssist.Hint="Chọn ngày bắt đầu"
+              Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
+
+            <!--Chọn ngày thống kế-->
+            <DatePicker Name="EndDateDP"
+              Width="200" Height="40"
+              materialDesign:HintAssist.Hint="Chọn ngày kết thúc"
+              Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="15,0,0,0" SelectedDateChanged="EndDateDP_SelectedDateChanged"/>
+        </StackPanel>
+
+    </Grid>
+</Page>

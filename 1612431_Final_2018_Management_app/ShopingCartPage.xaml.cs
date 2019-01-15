@@ -112,6 +112,7 @@ namespace _1612431_Final_2018_Management_app
 
                 PromotionTextBlock.Text = SumPromotion.ToString(sFormat);
 
+                TotalAmout = Price - SumPromotion;
                 TotalAmountTextBlock.Text = (Price - SumPromotion).ToString(sFormat);
 
                 ApplyCodeButton_Click(null, null);

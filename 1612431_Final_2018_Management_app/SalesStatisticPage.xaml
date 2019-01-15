@@ -1,0 +1,52 @@
+﻿<Page x:Class="_1612431_Final_2018_Management_app.SalesStatisticPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+      xmlns:local="clr-namespace:_1612431_Final_2018_Management_app"
+      mc:Ignorable="d" 
+               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:DesignWidth="1103"
+      Height="600"
+      >
+
+    <Grid>
+        <!--Biểu đồ-->
+        <StackPanel Name="ChartStackPanel" Visibility="Hidden">
+            <ScrollViewer  HorizontalScrollBarVisibility="Visible" VerticalAlignment="Top" VerticalScrollBarVisibility="Disabled" Height="500" Width="1103"  HorizontalAlignment="Left" Margin="0,114,0,-14">
+                <chartingToolkit:Chart Name="lineChart" BorderThickness="0"  Margin="0" Width="1080" Title="Biểu đồ doanh thu theo tháng">
+                    <chartingToolkit:LineSeries Name="column" DependentValuePath="Value" Width="968" Height="450" Title="Doanh thu" IndependentValuePath="Key" ItemsSource="{Binding}" />
+                </chartingToolkit:Chart>
+            </ScrollViewer>
+        </StackPanel>
+
+
+        <ComboBox x:Name="MonthStartDP" Height="46"
+            materialDesign:HintAssist.Hint="Tháng bắt đầu" 
+            IsEditable="True"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="92,36,885,518" />
+
+        <ComboBox x:Name="YearStartDP" Height="46"
+            materialDesign:HintAssist.Hint="Năm bắt đầu"
+            IsEditable="True"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="223,36,757,518" />
+
+        <TextBlock Margin="364,34,718,514" Width="21" HorizontalAlignment="Center" FontSize="40"> -</TextBlock>
+
+        <ComboBox x:Name="MonthEndDP" Height="46"
+            materialDesign:HintAssist.Hint="Tháng kết thúc"
+            IsEditable="True"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="399,36,577,518" />
+        <ComboBox x:Name="YearEndDP" Height="46" SelectionChanged="YearEndDP_SelectionChanged"
+            materialDesign:HintAssist.Hint="Năm kết thúc"
+            IsEditable="True"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="531,36,453,518" />
+
+        <StackPanel Height="40" Margin="650,44,381,516">
+            <Button x:Name="ResetDate" Click="ResetDate_Click" Margin="5" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Đặt lại thời gian thống kê" Height="30" Width="30" >
+                <materialDesign:PackIcon Kind="Update" Width="25" Height="25"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

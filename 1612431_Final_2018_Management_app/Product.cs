@@ -29,6 +29,9 @@ namespace _1612431_Final_2018_Management_app
         public bool isDelete { get; set; }
         public string ProductSource { get; set; }
     
+        public int Promotion { get; set; }
+        public int Amount { get; set; }
+
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetailBill> DetailBills { get; set; }

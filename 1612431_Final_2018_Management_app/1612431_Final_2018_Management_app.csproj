@@ -79,6 +79,15 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Controls.DataVisualization.Toolkit.4.0.0.0\lib\net40-Client\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -94,6 +103,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -106,6 +118,9 @@
     </Compile>
     <Compile Include="Bill.cs">
       <DependentUpon>StoreModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillManagePage.xaml.cs">
+      <DependentUpon>BillManagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Category.cs">
       <DependentUpon>StoreModel.tt</DependentUpon>
@@ -125,6 +140,9 @@
     <Compile Include="DetailBill.cs">
       <DependentUpon>StoreModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DetailBillManage.xaml.cs">
+      <DependentUpon>DetailBillManage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -134,6 +152,9 @@
     <Compile Include="Product.cs">
       <DependentUpon>StoreModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductsStatisticPage.xaml.cs">
+      <DependentUpon>ProductsStatisticPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PromotionPage.xaml.cs">
       <DependentUpon>PromotionPage.xaml</DependentUpon>
     </Compile>
@@ -142,6 +163,9 @@
     </Compile>
     <Compile Include="SalePercentPromotion.cs">
       <DependentUpon>StoreModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalesStatisticPage.xaml.cs">
+      <DependentUpon>SalesStatisticPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ShopingCartPage.xaml.cs">
       <DependentUpon>ShopingCartPage.xaml</DependentUpon>
@@ -207,7 +231,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="BillManagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CategoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DetailBillManage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,11 +255,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ProductsStatisticPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PromotionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PurchasePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SalesStatisticPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -285,6 +325,11 @@
     <Resource Include="image\money.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="image\bill.png" />
+    <Resource Include="image\product.png" />
+    <Resource Include="image\productsStatistic.png" />
+    <Resource Include="image\promotion.png" />
+    <Resource Include="image\salesStatistic.png" />
     <Content Include="StoreModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>StoreModel.edmx</DependentUpon>

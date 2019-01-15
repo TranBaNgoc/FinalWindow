@@ -46,6 +46,7 @@ namespace _1612431_Final_2018_Management_app
                     Header = "Quản lý",
                     Content = new Frame()
                     {
+                        NavigationUIVisibility = NavigationUIVisibility.Hidden,
                         Content = new ManagePage()
                     },
                 }
@@ -71,6 +72,24 @@ namespace _1612431_Final_2018_Management_app
         {
             TabControl tabControl = ManagePage.tabControl;
             tabControl.SelectedIndex = 1;
+        }
+
+        private void SalesStatisticButton_Click(object sender, RoutedEventArgs e)
+        {
+            TabControl tabControl = ManagePage.tabControl;
+            tabControl.SelectedIndex = 3;
+        }
+
+        private void ProductsStatisticButton_Click(object sender, RoutedEventArgs e)
+        {
+            TabControl tabControl = ManagePage.tabControl;
+            tabControl.SelectedIndex = 2;
+        }
+
+        private void BillButton_Click(object sender, RoutedEventArgs e)
+        {
+            TabControl tabControl = ManagePage.tabControl;
+            tabControl.SelectedIndex = 4;
         }
     }
 }

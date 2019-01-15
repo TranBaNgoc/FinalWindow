@@ -17,16 +17,38 @@
                 </Style>
             </TabControl.ItemContainerStyle>
 
-            
+            <!--0-->
             <TabItem Name="Product">
                 <Grid>
                     <Frame Source="CategoryPage.xaml"/>
                 </Grid>
             </TabItem>
 
+            <!--1-->
             <TabItem Name="Promotion">
                 <Grid>
                     <Frame Source="PromotionPage.xaml"/>
+                </Grid>
+            </TabItem>
+
+            <!--2-->
+            <TabItem Name="ProductsStatistic">
+                <Grid>
+                    <Frame Source="ProductsStatisticPage.xaml"/>
+                </Grid>
+            </TabItem>
+
+            <!--3-->
+            <TabItem Name="SalesStatistic">
+                <Grid>
+                    <Frame Source="SalesStatisticPage.xaml"/>
+                </Grid>
+            </TabItem>
+
+            <!--4-->
+            <TabItem Name="BillManage">
+                <Grid>
+                    <Frame Source="BillManagePage.xaml"/>
                 </Grid>
             </TabItem>
 

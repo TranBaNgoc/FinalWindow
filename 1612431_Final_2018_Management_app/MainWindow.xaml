@@ -29,14 +29,20 @@
             </Fluent:RibbonTabItem>
             
             <Fluent:RibbonTabItem Header="Quản lý">
-                <Fluent:RibbonGroupBox Width="90" Header="Product">
-                    <Fluent:Button Width="82" Click="ProductButton_Click" Header="Hàng hoá" Name="ProductButton"></Fluent:Button>
+                <Fluent:RibbonGroupBox Width="180" Header="Sản phẩm">
+                    <Fluent:Button LargeIcon="image/product.png" Width="82" Click="ProductButton_Click" Header="Hàng hoá" Name="ProductButton"></Fluent:Button>
+                    <Fluent:Button LargeIcon="image/bill.png" Width="82" Click="BillButton_Click" Header="Hoá đơn" Name="BillButton"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Width="90" Header="Promotion">
-                    <Fluent:Button Width="82" Click="PromotionButton_Click" Header="Khuyến mãi" Name="PromotionButton"></Fluent:Button>
+                <Fluent:RibbonGroupBox Width="90">
+                    <Fluent:Button LargeIcon="image/promotion.png" Width="82" Click="PromotionButton_Click" Header="Khuyến mãi" Name="PromotionButton"></Fluent:Button>
                 </Fluent:RibbonGroupBox>
-                
+
+                <Fluent:RibbonGroupBox Width="180" Header="Thống kê">
+                    <Fluent:Button LargeIcon="image/productsStatistic.png" Click="ProductsStatisticButton_Click" Width="82"  Header="Sản phẩm" Name="ProductsStatisticButton"></Fluent:Button>
+                    <Fluent:Button LargeIcon="image/salesStatistic.png" Click="SalesStatisticButton_Click" Width="82"  Header="Doanh thu" Name="SalesStatisticButton"></Fluent:Button>
+                </Fluent:RibbonGroupBox>
+
             </Fluent:RibbonTabItem>
         </Fluent:Ribbon>
 

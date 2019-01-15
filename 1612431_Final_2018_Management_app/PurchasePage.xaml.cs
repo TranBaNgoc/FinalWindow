@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,23 @@ namespace _1612431_Final_2018_Management_app
         {
             db = new StoreManagementEntities();
             
-            ListviewItem.ItemsSource = db.Products.Where(s=>s.isDelete == false && s.Quantity > 0).ToList();
+            var Products = db.Products.Where(s=>s.isDelete == false && s.Quantity > 0).ToList();
+
+            List<Product> products = new List<Product>();
+
+            foreach(var item in Products)
+            {
+                if (db.Categories.Find(item.CategoryID).isDelete == false)
+                {
+                    products.Add(item);
+                }
+            }
+
+            ListviewItem.ItemsSource = products;
+
+            CategoryListStackPanel.Height = db.Categories.Where(s => s.isDelete == false).ToList().Count * 45;
+            
+            CategoryListView.ItemsSource = db.Categories.Where(s => s.isDelete == false).ToList();
         }
 
         private void ListviewItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -69,6 +86,76 @@ namespace _1612431_Final_2018_Management_app
             else
             {
                 ListviewItem.ItemsSource = db.Products.Where(s => s.isDelete == false).ToList();
+            }
+        }
+
+        private void CategoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CategoryListView.SelectedIndex != -1)
+            {
+                var category = CategoryListView.SelectedItem as Category;
+
+                ListviewItem.ItemsSource = db.Products.Where(s => (s.isDelete == false && s.CategoryID == category.ID)).ToList();
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Page_Loaded(null, null);
+        }
+
+        int startPrice = 0;
+        int endPrice = 0;
+
+        private void StartPriceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            startPrice = (int)(StartPriceSlider.Value * 100000) - ((int)(StartPriceSlider.Value * 100000) % 10000);
+
+            // Chuyển định dạng số tiền
+            CultureInfo cul = CultureInfo.CurrentCulture;
+            string decimalSep = cul.NumberFormat.CurrencyDecimalSeparator;
+            string groupSep = cul.NumberFormat.CurrencyGroupSeparator;
+            string sFormat = string.Format("#{0}###", groupSep);
+
+            StartPriceTextBox.Text = startPrice.ToString(sFormat);
+        }
+
+        private void EndPriceSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            endPrice = (int)(EndPriceSlider.Value * 100000) - (int)(EndPriceSlider.Value * 100000) % 10000;
+
+            // Chuyển định dạng số tiền
+            CultureInfo cul = CultureInfo.CurrentCulture;
+            string decimalSep = cul.NumberFormat.CurrencyDecimalSeparator;
+            string groupSep = cul.NumberFormat.CurrencyGroupSeparator;
+            string sFormat = string.Format("#{0}###", groupSep);
+
+            EndPriceTextBox.Text = endPrice.ToString(sFormat);
+        }
+
+        private void ApplyPriceButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CategoryListView.SelectedIndex != -1)
+            {
+                var category = CategoryListView.SelectedItem as Category;
+
+                ListviewItem.ItemsSource = db.Products.Where(s => (s.isDelete == false && s.CategoryID == category.ID && s.DisplayPrice >= startPrice && s.DisplayPrice <= endPrice)).ToList();
+            }
+            else
+            {
+                var Products = db.Products.Where(s => s.isDelete == false && s.Quantity > 0 && s.DisplayPrice >= startPrice && s.DisplayPrice <= endPrice).ToList();
+
+                List<Product> products = new List<Product>();
+
+                foreach (var item in Products)
+                {
+                    if (db.Categories.Find(item.CategoryID).isDelete == false)
+                    {
+                        products.Add(item);
+                    }
+                }
+                ListviewItem.ItemsSource = products;
+
             }
         }
     }
