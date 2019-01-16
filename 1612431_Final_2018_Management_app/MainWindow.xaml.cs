@@ -91,5 +91,10 @@ namespace _1612431_Final_2018_Management_app
             TabControl tabControl = ManagePage.tabControl;
             tabControl.SelectedIndex = 4;
         }
+
+        private void RibbonWindow_Closed(object sender, EventArgs e)
+        {
+            App.Current.Shutdown();
+        }
     }
 }

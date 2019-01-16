@@ -27,7 +27,6 @@ namespace _1612431_Final_2018_Management_app
         public PurchasePage()
         {
             InitializeComponent();
-            
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -81,11 +80,35 @@ namespace _1612431_Final_2018_Management_app
         {
             if (NameTextBox.Text != "")
             {
-                ListviewItem.ItemsSource = db.Products.Where(s => s.isDelete == false && s.Name.Contains(NameTextBox.Text)).ToList();
+                var Products = db.Products.Where(s => s.isDelete == false && s.Name.Contains(NameTextBox.Text.ToLower())).ToList();
+
+                List<Product> products = new List<Product>();
+
+                foreach (var item in Products)
+                {
+                    if (db.Categories.Find(item.CategoryID).isDelete == false)
+                    {
+                        products.Add(item);
+                    }
+                }
+                ListviewItem.ItemsSource = products;
+
             }
             else
             {
-                ListviewItem.ItemsSource = db.Products.Where(s => s.isDelete == false).ToList();
+                var Products = db.Products.Where(s => s.isDelete == false).ToList();
+
+                List<Product> products = new List<Product>();
+
+                foreach (var item in Products)
+                {
+                    if (db.Categories.Find(item.CategoryID).isDelete == false)
+                    {
+                        products.Add(item);
+                    }
+                }
+                ListviewItem.ItemsSource = products;
+
             }
         }
 

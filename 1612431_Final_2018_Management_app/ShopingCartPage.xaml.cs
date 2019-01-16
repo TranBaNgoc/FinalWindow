@@ -280,6 +280,10 @@ namespace _1612431_Final_2018_Management_app
                 Page_Loaded(null, null);
                 Hyperlink_Click(null, null);
             }
+            else
+            {
+                MessageBox.Show("Thông tin khách hàng không được để trống");
+            }
         }
 
         private void ATMPayButton_Click(object sender, RoutedEventArgs e)

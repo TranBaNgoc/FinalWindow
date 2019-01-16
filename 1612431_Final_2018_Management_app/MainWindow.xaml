@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:_1612431_Final_2018_Management_app"
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
                mc:Ignorable="d"
-                   
+               Closed="RibbonWindow_Closed"    
+                     ResizeMode="NoResize"
         Title="QUẢN LÝ BÁN HÀNG" Height="750" Width="1103" Loaded="RibbonWindow_Loaded" WindowStartupLocation="CenterScreen">
     <DockPanel LastChildFill="True">
         <Fluent:Ribbon DockPanel.Dock="Top" Name="ribbon" IsAutomaticCollapseEnabled="True">
