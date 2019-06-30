@@ -49,6 +49,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>bill_Bju_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.4.0.0-alpha0218\lib\net45\ControlzEx.dll</HintPath>
@@ -330,6 +333,8 @@
     <Resource Include="image\productsStatistic.png" />
     <Resource Include="image\promotion.png" />
     <Resource Include="image\salesStatistic.png" />
+    <Resource Include="icons8_settings_48_EFW_icon.ico" />
+    <Resource Include="bill_Bju_icon.ico" />
     <Content Include="StoreModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>StoreModel.edmx</DependentUpon>
